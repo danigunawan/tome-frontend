@@ -25,6 +25,7 @@ import StoryNote from "./story_notes/StoryNote";
 import LoginPageMaterial from "./LoginPageMaterial";
 import SignUpMaterial from "./SignUpMaterial";
 import BreadCrumb from "../components/BreadCrumb";
+import LoginPage from "./LoginPage";
 
 class Page extends Component {
   render() {
@@ -39,7 +40,7 @@ class Page extends Component {
               <Route
                 path="/"
                 exact
-                render={props => <LoginPageMaterial {...props} />}
+                render={props => <LoginPage {...props} />}
               />
               <Route
                 path="/signup"
