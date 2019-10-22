@@ -1,19 +1,36 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import React, { Component } from "react";
+import { Icon } from "semantic-ui-react";
 
-const Images = props =>
-  props.images.map((image, i) => (
+const Images = props => {
+  this.props.images.map((image, i) => (
     <div key={i} className="fadein">
       <div
         onClick={() => props.removeImage(image.public_id)}
         className="delete"
       >
-        <FontAwesomeIcon icon={faTimesCircle} size="2x" />
+        <Icon icon="delete" />
       </div>
       <img src={image.secure_url} alt="" />
     </div>
   ));
+
+  const content = () => {
+    switch (true) {
+      case this.props.images.length > 0:
+        return (
+          <Images
+            images={images}
+            removeImage={this.removeImage}
+            onError={this.onError}
+          />
+        );
+      default:
+        return <Buttons onChange={this.onChange} />;
+    }
+  };
+
+  return <div>{content()}</div>;
+};
 
 const mapStateToProps = state => {
   return {

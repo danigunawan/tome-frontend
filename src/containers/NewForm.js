@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import composedAuthHOC from "../HOC/AuthHOC";
 import { addBreadCrumb } from "../actions/breadcrumbActions";
 import { connect } from "react-redux";
+import ImageButtons from "../components/ImageButtons";
 
 class NewForm extends Component {
   componentDidMount() {
@@ -14,9 +15,6 @@ class NewForm extends Component {
   //   this.setState({selectedFile: e.target.files[0]})
   // }
 
-  // const fileUploadHandler = () => {
-  //   axios.post('')
-  // }
   render() {
     const storyItem = () => {
       return this.props.stories.story;
@@ -30,10 +28,7 @@ class NewForm extends Component {
             {storyItem() ? this.props.stories.story.id : null}
           </div>
 
-          {/* <div>
-          <input type='file' onChange={handleFileSelect} />
-
-        </div> */}
+          <ImageButtons {...this.props} />
 
           <div>
             <label htmlFor="name">

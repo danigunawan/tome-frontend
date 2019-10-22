@@ -1,24 +1,60 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImages, faImage } from "@fortawesome/free-solid-svg-icons";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Icon } from "semantic-ui-react";
 
-const ImageButtons = props => (
-  <div className="buttons fadein">
-    <div className="button">
-      <label htmlFor="single">
-        <FontAwesomeIcon icon={faImage} color="#3B5998" size="10x" />
-      </label>
-      <input type="file" id="single" onChange={props.onChange} />
-    </div>
+const BASE_URL = "http://localhost:3000/";
 
-    <div className="button">
-      <label htmlFor="multi">
-        <FontAwesomeIcon icon={faImages} color="#6d84b4" size="10x" />
-      </label>
-      <input type="file" id="multi" onChange={props.onChange} multiple />
-    </div>
-  </div>
-);
+class ImageButtons extends Component {
+  onChange = e => {
+    const files = Array.from(e.target.files);
+
+    const formData = new FormData();
+
+    files.forEach((file, i) => {
+      formData.append(i, file);
+    });
+
+    fetch(`${BASE_URL}/${this.props.type}/image_upload`, {
+      method: "POST",
+      body: formData
+    })
+      .then(res => res.json())
+      .then(images => console.log(images));
+    //   .then(images => {
+    //     this.setState({
+    //       uploading: false,
+    //       images
+    //     });
+    //   });
+  };
+
+  render() {
+    return (
+      <>
+        <div className="buttons fadein">
+          <div className="button">
+            <label htmlFor="single">
+              <Icon icon="image" />
+            </label>
+            <input type="file" id="single" onChange={this.onChange} />
+          </div>
+
+          <div className="button">
+            <label htmlFor="multi">
+              <Icon icon="images" />
+            </label>
+            <input
+              type="file"
+              id="multi"
+              onChange={this.props.onChange}
+              multiple
+            />
+          </div>
+        </div>
+      </>
+    );
+  }
+}
 
 const mapStateToProps = state => {
   return {

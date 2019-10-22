@@ -3,6 +3,7 @@ import composedAuthHOC from "../HOC/AuthHOC.js";
 import DeleteModal from "../components/DeleteModal.js";
 import { connect } from "react-redux";
 import { addBreadCrumb } from "../actions/breadcrumbActions";
+import ImageButtons from "../components/ImageButtons.js";
 
 const IMG =
   "https://cdn.pixabay.com/photo/2017/07/22/11/46/adventure-2528477_960_720.jpg";
@@ -26,9 +27,18 @@ class EditForm extends Component {
             className={"image_wrapper image_fl display_img"}
           />
           <form onSubmit={this.props.handleEdit}>
-            <h3>[Image Upload Stuff Will Go Here]</h3>
+
+
+
+
+
+            <ImageButtons {...this.props} type={this.props.item_type} />
+
+
+
+
             <label htmlFor="name">
-              {this.props.type === "story" || this.props.type === "Note"
+              {this.props.item_type === "story" || this.props.item_type === "Note"
                 ? "Title:"
                 : "Name:"}
             </label>
@@ -36,20 +46,20 @@ class EditForm extends Component {
               id="name"
               type="text"
               placeholder={
-                this.props.type === "story" || this.props.type === "Note"
+                this.props.item_type === "story" || this.props.item_type === "Note"
                   ? "Title"
                   : "Name"
               }
               defaultValue={
-                this.props.item.title
-                  ? this.props.item.title
-                  : this.props.item.name
+                this.props.item_item.title
+                  ? this.props.item_item.title
+                  : this.props.item_item.name
               }
               className="input_field"
             />
             <label htmlFor="description">Description:</label>
             <textarea
-              id={this.props.type === "Note" ? "note-content" : "description"}
+              id={this.props.item_type === "Note" ? "note-content" : "description"}
               className="input_field"
               placeholder="Description"
               defaultValue={
